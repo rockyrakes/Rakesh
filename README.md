@@ -9,13 +9,15 @@ FROM nginx:stable-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+docker build -t demo-app .
+docker run -p 3001:80 demo-app
 
 
 
 call npm ci || call npm install
 call npm run build
 mkdir "C:\ProgramData\Jenkins\.jenkins\userContent\freestyle\"
-xcopy /E /I /Y "C:\ProgramData\Jenkins\.jenkins\workspace\freestyle\dist\*" "C:\ProgramData\Jenkins\.jenkins\userContent\freestyle\"
+xcopy /E /I /Y "dist\*" "C:\ProgramData\Jenkins\.jenkins\userContent\freestyle\"
 
 
 
